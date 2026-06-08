@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DeepInfra Chat</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <h1>DeepInfra Chat</h1>
+      <p class="subtitle">Lokaler Chat mit DeepInfra — Modell und System-Prompt anpassbar</p>
+    </header>
+
+    <section class="settings-panel" aria-labelledby="settings-heading">
+      <h2 id="settings-heading" class="settings-heading">Einstellungen</h2>
+
+      <label class="field-label" for="model-select">Modell</label>
+      <select id="model-select" class="model-select">
+        <option value="">Lade …</option>
+      </select>
+
+      <label class="field-label" for="system-prompt-input">System-Prompt</label>
+      <textarea
+        id="system-prompt-input"
+        class="system-prompt-input"
+        rows="5"
+        placeholder="System-Prompt eingeben …"
+      ></textarea>
+    </section>
+
+    <main class="chat-container">
+      <div id="chat-output" class="chat-output" aria-live="polite"></div>
+
+      <form id="chat-form" class="chat-form">
+        <textarea
+          id="message-input"
+          class="message-input"
+          placeholder="Nachricht eingeben …"
+          rows="2"
+          autocomplete="off"
+          required
+        ></textarea>
+        <button type="submit" id="send-button" class="send-button">Senden</button>
+      </form>
+
+      <p id="loading-indicator" class="loading-indicator" hidden>Lade Antwort …</p>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
