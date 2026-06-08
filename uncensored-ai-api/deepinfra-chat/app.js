@@ -6,10 +6,30 @@ const loadingIndicator = document.getElementById('loading-indicator');
 const modelSelect = document.getElementById('model-select');
 const systemPromptInput = document.getElementById('system-prompt-input');
 
+function renderMarkdown(text) {
+  if (typeof marked === 'undefined' || typeof DOMPurify === 'undefined') {
+    return null;
+  }
+  marked.setOptions({ breaks: true, gfm: true });
+  return DOMPurify.sanitize(marked.parse(text));
+}
+
 function appendMessage(text, type) {
   const el = document.createElement('div');
   el.className = `message message--${type}`;
-  el.textContent = text;
+
+  if (type === 'assistant') {
+    const html = renderMarkdown(text);
+    if (html) {
+      el.classList.add('markdown-body');
+      el.innerHTML = html;
+    } else {
+      el.textContent = text;
+    }
+  } else {
+    el.textContent = text;
+  }
+
   chatOutput.appendChild(el);
   chatOutput.scrollTop = chatOutput.scrollHeight;
 }
