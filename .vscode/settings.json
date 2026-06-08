@@ -1,0 +1,3 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/prompt_injection_workshop_kit/.venv/Scripts/python.exe"
+}
