@@ -1,0 +1,11 @@
+# Jede Zeile ist eine eigene Suchanfrage.
+# Zeilen mit # werden ignoriert.
+
+Hausverwaltung Bayreuth
+Bauträger Bayreuth
+Projektentwickler Bayreuth
+Architekt Bayreuth
+Gewerbepark Bayreuth
+Pflegeheim Betreiber Bayreuth
+Hotel Betreiber Bayreuth
+Gewerbeflächen Bayreuth

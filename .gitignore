@@ -1,0 +1,18 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# PyInstaller
+build/
+dist/
+*.spec
+
+# Build output
+release/
+output/
+
+*.pdf

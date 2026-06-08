@@ -1,0 +1,5 @@
+requests
+python-dotenv
+openpyxl
+google-cloud-api-keys
+pyinstaller
