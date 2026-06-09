@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI-Act Dokumentations-Tool</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">AI-Act Documentation Generator</p>
+        <h1>Fragebogen für AI-Act-Dokumente</h1>
+        <p class="subline">
+          Beim Start wird automatisch eine JSON aus diesem Ordner geladen. Antworten speichern Sie in dieselbe Datei.
+        </p>
+      </div>
+      <div class="status-card">
+        <span id="saveStatus" class="status">Keine Datei geladen</span>
+        <strong id="progressText">0 / 0 beantwortet</strong>
+      </div>
+    </header>
+
+    <section class="toolbar">
+      <div class="toolbar-group">
+        <label for="jsonFileSelect">JSON-Datei</label>
+        <select id="jsonFileSelect" disabled>
+          <option value="">Wird geladen …</option>
+        </select>
+
+        <button id="saveFileButton" type="button" class="primary" disabled>
+          Speichern
+        </button>
+
+        <button id="downloadButton" type="button" class="secondary" disabled>
+          Als Kopie herunterladen
+        </button>
+      </div>
+
+      <div class="toolbar-group">
+        <button id="linkFolderButton" type="button" class="secondary" hidden>
+          Ordner verknüpfen
+        </button>
+        <button id="loadExampleButton" type="button" class="secondary">
+          Beispiel laden
+        </button>
+        <button id="resetAnswersButton" type="button" class="danger" disabled>
+          Antworten leeren
+        </button>
+      </div>
+    </section>
+
+    <section class="layout">
+      <aside class="sidebar">
+        <h2>Abschnitte</h2>
+        <nav id="sectionNav"></nav>
+
+        <div class="info-box">
+          <strong>Hinweis</strong>
+          <p>
+            Starten Sie das Tool mit <code>py -3 server.py</code> im Ordner, damit JSON-Dateien automatisch
+            geladen und gespeichert werden. Ohne Server können Sie in Chrome/Edge den Ordner einmal verknüpfen.
+          </p>
+        </div>
+      </aside>
+
+      <section class="content">
+        <div id="emptyState" class="empty-state">
+          <h2>Noch keine Fragen geladen</h2>
+          <p>Starten Sie <code>py -3 server.py</code> im Tool-Ordner oder verknüpfen Sie den Ordner. Alternativ: Beispiel laden.</p>
+        </div>
+
+        <form id="questionForm" class="question-form" hidden></form>
+      </section>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

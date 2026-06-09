@@ -1,0 +1,269 @@
+{
+  "meta": {
+    "project_name": "AI-Act Dokumentationspaket",
+    "schema_version": "1.0",
+    "language": "de",
+    "updated_at": null,
+    "target_use": "Dieses JSON wird vom Web-Tool befüllt und später von Python zur Word-Erzeugung verwendet."
+  },
+  "sections": [
+    {
+      "id": "company",
+      "title": "Unternehmen",
+      "description": "Basisdaten des Unternehmens und der verantwortlichen Person.",
+      "questions": [
+        {
+          "id": "company_name",
+          "label": "Name des Unternehmens",
+          "type": "text",
+          "required": true,
+          "answer": ""
+        },
+        {
+          "id": "legal_entity",
+          "label": "Rechtsform",
+          "type": "text",
+          "required": false,
+          "answer": ""
+        },
+        {
+          "id": "industry",
+          "label": "Branche",
+          "type": "select",
+          "required": true,
+          "options": [
+            "Versicherung",
+            "Finanzdienstleistung",
+            "Gesundheit",
+            "Bildung",
+            "Industrie",
+            "Handel",
+            "IT / Software",
+            "Medien",
+            "Sonstiges"
+          ],
+          "answer": ""
+        },
+        {
+          "id": "contact_person",
+          "label": "Verantwortliche Person",
+          "type": "text",
+          "required": false,
+          "answer": ""
+        }
+      ]
+    },
+    {
+      "id": "ai_system",
+      "title": "KI-System",
+      "description": "Beschreibung des KI-Systems, seines Zwecks und seines Einsatzes.",
+      "questions": [
+        {
+          "id": "ai_system_name",
+          "label": "Name des KI-Systems",
+          "type": "text",
+          "required": true,
+          "answer": ""
+        },
+        {
+          "id": "version",
+          "label": "Version / Stand",
+          "type": "text",
+          "required": false,
+          "answer": ""
+        },
+        {
+          "id": "purpose",
+          "label": "Was soll das KI-System tun?",
+          "type": "textarea",
+          "required": true,
+          "help": "Beschreiben Sie den konkreten Zweck möglichst verständlich.",
+          "answer": ""
+        },
+        {
+          "id": "deployment_status",
+          "label": "Status",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Idee",
+            "Prototyp",
+            "Pilot",
+            "Produktiv",
+            "Eingestellt"
+          ],
+          "answer": ""
+        },
+        {
+          "id": "user_groups",
+          "label": "Wer nutzt das System?",
+          "type": "checkbox",
+          "required": false,
+          "options": [
+            "Mitarbeitende",
+            "Führungskräfte",
+            "Kunden",
+            "Makler / Vertriebspartner",
+            "Endverbraucher",
+            "Externe Dienstleister"
+          ],
+          "answer": []
+        },
+        {
+          "id": "affected_persons",
+          "label": "Welche Personen sind von Ergebnissen betroffen?",
+          "type": "checkbox",
+          "required": false,
+          "options": [
+            "Keine natürlichen Personen",
+            "Mitarbeitende",
+            "Bewerber",
+            "Kunden",
+            "Versicherungsnehmer",
+            "Patienten",
+            "Schüler / Studierende",
+            "Endverbraucher",
+            "Sonstige"
+          ],
+          "answer": []
+        }
+      ]
+    },
+    {
+      "id": "ai_act_classification",
+      "title": "AI-Act Ersteinschätzung",
+      "description": "Fragen zur vorläufigen Risikoklassifizierung und Rollenklärung.",
+      "questions": [
+        {
+          "id": "external_ai_service",
+          "label": "Wird ein externer KI-Dienst genutzt?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "Unklar"
+          ],
+          "answer": ""
+        },
+        {
+          "id": "provider_name",
+          "label": "Falls externer Dienst: Name des Anbieters",
+          "type": "text",
+          "required": false,
+          "answer": ""
+        },
+        {
+          "id": "role",
+          "label": "Welche Rolle trifft am ehesten zu?",
+          "type": "select",
+          "required": true,
+          "options": [
+            "Betreiber / Deployer",
+            "Anbieter / Provider",
+            "Importeur",
+            "Händler / Distributor",
+            "Produkthersteller",
+            "Unklar"
+          ],
+          "answer": ""
+        },
+        {
+          "id": "sensitive_contexts",
+          "label": "In welchen sensiblen Bereichen wird das System eingesetzt?",
+          "type": "checkbox",
+          "required": false,
+          "options": [
+            "Recruiting / Bewerberauswahl",
+            "Beschäftigtenbewertung",
+            "Kreditwürdigkeitsprüfung",
+            "Versicherung / Risikobewertung natürlicher Personen",
+            "Bildung / Prüfung / Bewertung",
+            "Kritische Infrastruktur",
+            "Gesundheit / Medizin",
+            "Biometrie",
+            "Zugang zu wesentlichen Dienstleistungen",
+            "Keiner dieser Bereiche"
+          ],
+          "answer": []
+        },
+        {
+          "id": "human_oversight",
+          "label": "Gibt es eine menschliche Kontrolle der KI-Ergebnisse?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja, finale Entscheidung durch Menschen",
+            "Teilweise",
+            "Nein, vollautomatisch",
+            "Unklar"
+          ],
+          "answer": ""
+        },
+        {
+          "id": "automated_decision",
+          "label": "Trifft das System Entscheidungen automatisch oder bereitet es diese vor?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Nur Unterstützung / Empfehlung",
+            "Entscheidungsvorbereitung",
+            "Vollautomatische Entscheidung",
+            "Unklar"
+          ],
+          "answer": ""
+        },
+        {
+          "id": "personal_data",
+          "label": "Werden personenbezogene Daten verarbeitet?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "Unklar"
+          ],
+          "answer": ""
+        },
+        {
+          "id": "data_categories",
+          "label": "Welche Datenarten werden verarbeitet?",
+          "type": "checkbox",
+          "required": false,
+          "options": [
+            "Keine personenbezogenen Daten",
+            "Kontaktdaten",
+            "Vertragsdaten",
+            "Finanzdaten",
+            "Gesundheitsdaten",
+            "Beschäftigtendaten",
+            "Bewerberdaten",
+            "Kommunikationsdaten",
+            "Biometrische Daten",
+            "Sonstige"
+          ],
+          "answer": []
+        },
+        {
+          "id": "transparency_relevant",
+          "label": "Interagieren Menschen direkt mit dem KI-System oder werden KI-Inhalte erzeugt?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "Unklar"
+          ],
+          "answer": ""
+        },
+        {
+          "id": "notes",
+          "label": "Offene Punkte / Hinweise",
+          "type": "textarea",
+          "required": false,
+          "answer": ""
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1305 @@
+{
+  "meta": {
+    "project_name": "AI-Act Dokumentationspaket",
+    "schema_version": "2.0",
+    "language": "de",
+    "created_at": "2026-06-09T10:04:36",
+    "updated_at": "2026-06-09T10:11:25.579Z",
+    "target_use": "Dieses JSON wird vom Web-Tool befüllt und später von Python zur automatisierten Word-Dokumentenerzeugung verwendet.",
+    "important_note": "Die Default-Antworten sind Beispielwerte und müssen für den konkreten KI-Anwendungsfall geprüft und angepasst werden.",
+    "document_outputs": [
+      "01_AI-System-Steckbrief.docx",
+      "02_AI-Act-Risikoklassifizierung.docx",
+      "03_Pflichtenmatrix.docx",
+      "04_Risikomanagement.docx",
+      "05_Daten-Governance.docx",
+      "06_Human-Oversight-Konzept.docx",
+      "07_Logging-und-Monitoring.docx",
+      "08_Technische-Dokumentation.docx",
+      "09_Transparenz-und-Nutzerinformation.docx",
+      "10_FRIA-Vorprüfung.docx",
+      "11_Management-Summary.docx"
+    ]
+  },
+  "sections": [
+    {
+      "id": "company",
+      "title": "Unternehmen",
+      "description": "Basisdaten des Unternehmens und der verantwortlichen Personen.",
+      "questions": [
+        {
+          "id": "company_name",
+          "label": "Name des Unternehmens",
+          "type": "text",
+          "required": true,
+          "answer": "Mund GmbH"
+        },
+        {
+          "id": "legal_entity",
+          "label": "Rechtsform",
+          "type": "text",
+          "required": false,
+          "answer": "GmbH"
+        },
+        {
+          "id": "industry",
+          "label": "Branche",
+          "type": "select",
+          "required": true,
+          "options": [
+            "Versicherung",
+            "Finanzdienstleistung",
+            "Gesundheit",
+            "Bildung",
+            "Industrie",
+            "Handel",
+            "IT / Software",
+            "Medien",
+            "Sonstiges"
+          ],
+          "answer": "Versicherung"
+        },
+        {
+          "id": "company_size",
+          "label": "Unternehmensgröße",
+          "type": "select",
+          "required": true,
+          "options": [
+            "1-9 Mitarbeitende",
+            "10-49 Mitarbeitende",
+            "50-249 Mitarbeitende",
+            "250-999 Mitarbeitende",
+            "1.000+ Mitarbeitende"
+          ],
+          "answer": "50-249 Mitarbeitende"
+        },
+        {
+          "id": "country",
+          "label": "Sitz des Unternehmens",
+          "type": "text",
+          "required": true,
+          "answer": "Deutschland"
+        },
+        {
+          "id": "contact_person",
+          "label": "Fachlich verantwortliche Person",
+          "type": "text",
+          "required": true,
+          "answer": "Max Mustermann"
+        },
+        {
+          "id": "compliance_owner",
+          "label": "Compliance-/Rechtsverantwortliche Person",
+          "type": "text",
+          "required": false,
+          "answer": "Compliance-Team"
+        },
+        {
+          "id": "it_owner",
+          "label": "Technisch verantwortliche Person / IT Owner",
+          "type": "text",
+          "required": false,
+          "answer": "IT-Leitung"
+        }
+      ]
+    },
+    {
+      "id": "ai_system_profile",
+      "title": "KI-System-Steckbrief",
+      "description": "Grundbeschreibung des KI-Systems, seines Zwecks und seines Einsatzes.",
+      "questions": [
+        {
+          "id": "ai_system_name",
+          "label": "Name des KI-Systems",
+          "type": "text",
+          "required": true,
+          "answer": "AI Compliance Assistant"
+        },
+        {
+          "id": "ai_system_version",
+          "label": "Version / Stand",
+          "type": "text",
+          "required": true,
+          "answer": "1.0"
+        },
+        {
+          "id": "deployment_status",
+          "label": "Status des KI-Systems",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Idee",
+            "Prototyp",
+            "Pilot",
+            "Produktiv",
+            "Eingestellt"
+          ],
+          "answer": "Pilot"
+        },
+        {
+          "id": "system_purpose",
+          "label": "Was soll das KI-System tun?",
+          "type": "textarea",
+          "required": true,
+          "help": "Beschreiben Sie den fachlichen Zweck des Systems.",
+          "answer": "Das KI-System unterstützt Mitarbeitende bei der strukturierten Analyse von Informationen und bei der Erstellung interner Entwürfe. Es trifft keine rechtsverbindlichen oder vollautomatischen Entscheidungen."
+        },
+        {
+          "id": "intended_use",
+          "label": "Für welche Zwecke ist das KI-System ausdrücklich vorgesehen?",
+          "type": "textarea",
+          "required": true,
+          "answer": "Vorgesehen ist die Nutzung zur Rechercheunterstützung, Zusammenfassung interner Informationen, Erstellung von Dokumentationsentwürfen und Vorbereitung fachlicher Entscheidungsgrundlagen."
+        },
+        {
+          "id": "excluded_use",
+          "label": "Für welche Zwecke darf das KI-System ausdrücklich nicht verwendet werden?",
+          "type": "textarea",
+          "required": true,
+          "answer": "Das System darf nicht für vollautomatische Entscheidungen über natürliche Personen, verbindliche Rechtsberatung, finale Leistungsentscheidungen, medizinische Diagnosen oder diskriminierende Bewertungen verwendet werden."
+        },
+        {
+          "id": "main_functions",
+          "label": "Welche Hauptfunktionen bietet das KI-System?",
+          "type": "checkbox",
+          "required": true,
+          "options": [
+            "Texterstellung",
+            "Textzusammenfassung",
+            "Klassifizierung",
+            "Entscheidungsvorbereitung",
+            "Datenextraktion",
+            "Risikobewertung",
+            "Chatbot / Dialogsystem",
+            "Bildanalyse",
+            "Audioanalyse",
+            "Vorhersage / Scoring",
+            "Sonstiges"
+          ],
+          "answer": [
+            "Texterstellung",
+            "Textzusammenfassung",
+            "Entscheidungsvorbereitung",
+            "Chatbot / Dialogsystem"
+          ]
+        },
+        {
+          "id": "users",
+          "label": "Wer nutzt das System?",
+          "type": "checkbox",
+          "required": true,
+          "options": [
+            "Mitarbeitende",
+            "Führungskräfte",
+            "Kunden",
+            "Makler / Vertriebspartner",
+            "Endverbraucher",
+            "Externe Dienstleister",
+            "Sonstige"
+          ],
+          "answer": [
+            "Mitarbeitende",
+            "Führungskräfte"
+          ]
+        },
+        {
+          "id": "affected_persons",
+          "label": "Welche Personen können von Ergebnissen betroffen sein?",
+          "type": "checkbox",
+          "required": true,
+          "options": [
+            "Keine natürlichen Personen",
+            "Mitarbeitende",
+            "Bewerber",
+            "Kunden",
+            "Versicherungsnehmer",
+            "Patienten",
+            "Schüler / Studierende",
+            "Endverbraucher",
+            "Sonstige"
+          ],
+          "answer": [
+            "Mitarbeitende",
+            "Kunden"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "role_assessment",
+      "title": "Rollenklärung nach AI Act",
+      "description": "Einordnung der Rolle des Unternehmens im Verhältnis zum KI-System.",
+      "questions": [
+        {
+          "id": "primary_role",
+          "label": "Welche Rolle trifft aktuell am ehesten zu?",
+          "type": "select",
+          "required": true,
+          "options": [
+            "Betreiber / Deployer",
+            "Anbieter / Provider",
+            "Importeur",
+            "Händler / Distributor",
+            "Produkthersteller",
+            "Mehrere Rollen möglich",
+            "Unklar"
+          ],
+          "answer": "Betreiber / Deployer"
+        },
+        {
+          "id": "self_developed",
+          "label": "Wurde das KI-System selbst entwickelt?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "Teilweise",
+            "Unklar"
+          ],
+          "answer": "Teilweise"
+        },
+        {
+          "id": "external_ai_service",
+          "label": "Wird ein externer KI-Dienst oder ein externes Modell genutzt?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "Unklar"
+          ],
+          "answer": "Ja"
+        },
+        {
+          "id": "external_provider_name",
+          "label": "Name des externen KI-Anbieters / Modellanbieters",
+          "type": "text",
+          "required": false,
+          "answer": "OpenAI / Azure OpenAI / anderer Anbieter"
+        },
+        {
+          "id": "own_brand_offering",
+          "label": "Wird das KI-System unter eigenem Namen oder eigener Marke angeboten?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "Geplant",
+            "Unklar"
+          ],
+          "answer": "Nein"
+        },
+        {
+          "id": "substantial_modification",
+          "label": "Wird ein bestehendes KI-System wesentlich verändert?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "Teilweise",
+            "Unklar"
+          ],
+          "answer": "Nein"
+        },
+        {
+          "id": "final_decision_owner",
+          "label": "Wer trägt die fachliche Verantwortung für finale Entscheidungen?",
+          "type": "text",
+          "required": true,
+          "answer": "Fachabteilung / verantwortliche Führungskraft"
+        },
+        {
+          "id": "ai_output_binding",
+          "label": "Sind KI-Ergebnisse verbindlich?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Nein, nur unterstützend",
+            "Teilweise",
+            "Ja, verbindlich",
+            "Unklar"
+          ],
+          "answer": "Nein, nur unterstützend"
+        }
+      ]
+    },
+    {
+      "id": "risk_classification",
+      "title": "AI-Act-Risikoklassifizierung",
+      "description": "Prüfung verbotener Praktiken, Hochrisiko-Indikatoren und Transparenzpflichten.",
+      "questions": [
+        {
+          "id": "prohibited_practices_checked",
+          "label": "Wurde geprüft, ob verbotene KI-Praktiken betroffen sind?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "In Prüfung",
+            "Unklar"
+          ],
+          "answer": "In Prüfung"
+        },
+        {
+          "id": "prohibited_practices_indicators",
+          "label": "Gibt es Hinweise auf verbotene KI-Praktiken?",
+          "type": "checkbox",
+          "required": true,
+          "options": [
+            "Manipulative oder täuschende Beeinflussung",
+            "Ausnutzung von Schutzbedürftigkeit",
+            "Social Scoring",
+            "Bestimmte biometrische Echtzeit-Identifikation",
+            "Emotionserkennung am Arbeitsplatz oder in Bildung",
+            "Keiner dieser Punkte",
+            "Unklar"
+          ],
+          "answer": [
+            "Keiner dieser Punkte"
+          ]
+        },
+        {
+          "id": "high_risk_area",
+          "label": "In welchen potentiellen Hochrisiko-Bereichen wird das System eingesetzt?",
+          "type": "checkbox",
+          "required": true,
+          "options": [
+            "Biometrie",
+            "Kritische Infrastruktur",
+            "Bildung / Prüfung / Bewertung",
+            "Recruiting / Bewerberauswahl",
+            "Beschäftigtenmanagement",
+            "Kreditwürdigkeitsprüfung",
+            "Versicherung / Risikobewertung natürlicher Personen",
+            "Zugang zu wesentlichen privaten oder öffentlichen Dienstleistungen",
+            "Strafverfolgung",
+            "Migration / Asyl / Grenzkontrolle",
+            "Justiz / demokratische Prozesse",
+            "Keiner dieser Bereiche",
+            "Unklar"
+          ],
+          "answer": [
+            "Keiner dieser Bereiche"
+          ]
+        },
+        {
+          "id": "product_safety_component",
+          "label": "Ist das KI-System Sicherheitskomponente eines regulierten Produkts?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "Unklar"
+          ],
+          "answer": "Nein"
+        },
+        {
+          "id": "decision_impact",
+          "label": "Welche Wirkung können die KI-Ergebnisse auf natürliche Personen haben?",
+          "type": "select",
+          "required": true,
+          "options": [
+            "Keine oder nur interne Wirkung",
+            "Geringe organisatorische Wirkung",
+            "Wirtschaftlich relevante Wirkung",
+            "Rechtlich relevante Wirkung",
+            "Zugang zu Leistungen, Chancen oder Verträgen kann beeinflusst werden",
+            "Unklar"
+          ],
+          "answer": "Geringe organisatorische Wirkung"
+        },
+        {
+          "id": "automated_decision",
+          "label": "Trifft das System Entscheidungen automatisch oder bereitet es diese vor?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Nur Unterstützung / Empfehlung",
+            "Entscheidungsvorbereitung",
+            "Vollautomatische Entscheidung",
+            "Unklar"
+          ],
+          "answer": "Nur Unterstützung / Empfehlung"
+        },
+        {
+          "id": "transparency_relevant",
+          "label": "Interagieren Menschen direkt mit dem KI-System oder werden KI-Inhalte erzeugt?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "Unklar"
+          ],
+          "answer": "Ja"
+        },
+        {
+          "id": "gpa_ai_relevance",
+          "label": "Besteht ein Bezug zu General Purpose AI / Basismodellen?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "Unklar"
+          ],
+          "answer": "Ja"
+        },
+        {
+          "id": "preliminary_risk_result",
+          "label": "Vorläufige Risikoeinschätzung",
+          "type": "select",
+          "required": true,
+          "options": [
+            "Keine unmittelbare Hochrisiko-Indikation",
+            "Transparenzpflichten wahrscheinlich",
+            "Hochrisiko-Indikation möglich",
+            "Verbotene Praxis möglich",
+            "Unklar / rechtliche Prüfung erforderlich"
+          ],
+          "answer": "Transparenzpflichten wahrscheinlich"
+        },
+        {
+          "id": "risk_classification_reasoning",
+          "label": "Begründung der vorläufigen Risikoeinschätzung",
+          "type": "textarea",
+          "required": true,
+          "answer": "Das System wird unterstützend eingesetzt, trifft keine finalen Entscheidungen über natürliche Personen und ist nach aktuellem Kenntnisstand nicht in einem Hochrisiko-Bereich eingesetzt. Da Nutzer direkt mit dem System interagieren und KI-generierte Inhalte entstehen können, sind Transparenzpflichten zu prüfen."
+        }
+      ]
+    },
+    {
+      "id": "data_governance",
+      "title": "Daten-Governance",
+      "description": "Datenquellen, Datenarten, Datenqualität und Bias-Risiken.",
+      "questions": [
+        {
+          "id": "personal_data_processed",
+          "label": "Werden personenbezogene Daten verarbeitet?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "Unklar"
+          ],
+          "answer": "Ja"
+        },
+        {
+          "id": "data_categories",
+          "label": "Welche Datenarten werden verarbeitet?",
+          "type": "checkbox",
+          "required": true,
+          "options": [
+            "Keine personenbezogenen Daten",
+            "Kontaktdaten",
+            "Vertragsdaten",
+            "Finanzdaten",
+            "Gesundheitsdaten",
+            "Beschäftigtendaten",
+            "Bewerberdaten",
+            "Kommunikationsdaten",
+            "Biometrische Daten",
+            "Nutzungsdaten",
+            "Sonstige"
+          ],
+          "answer": [
+            "Kontaktdaten",
+            "Kommunikationsdaten",
+            "Nutzungsdaten"
+          ]
+        },
+        {
+          "id": "special_category_data",
+          "label": "Werden besondere Kategorien personenbezogener Daten verarbeitet?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "Unklar"
+          ],
+          "answer": "Nein"
+        },
+        {
+          "id": "data_sources",
+          "label": "Aus welchen Quellen stammen die verwendeten Daten?",
+          "type": "textarea",
+          "required": true,
+          "answer": "Die Eingabedaten stammen aus Nutzereingaben, internen Dokumenten und freigegebenen Unternehmensinformationen. Trainingsdaten des Basismodells werden durch den externen Modellanbieter verantwortet."
+        },
+        {
+          "id": "training_data_used_by_company",
+          "label": "Nutzt das Unternehmen eigene Daten zum Training oder Fine-Tuning?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "Geplant",
+            "Unklar"
+          ],
+          "answer": "Nein"
+        },
+        {
+          "id": "input_data_description",
+          "label": "Welche Eingabedaten werden im Betrieb typischerweise verarbeitet?",
+          "type": "textarea",
+          "required": true,
+          "answer": "Typische Eingaben sind fachliche Fragen, Dokumentauszüge, Prozessbeschreibungen, Stichpunkte, interne Richtlinien und allgemeine Textinformationen."
+        },
+        {
+          "id": "output_data_description",
+          "label": "Welche Ausgaben erzeugt das KI-System?",
+          "type": "textarea",
+          "required": true,
+          "answer": "Das System erzeugt Textvorschläge, Zusammenfassungen, strukturierte Entwürfe, Risikoindikationen und Dokumentationsbausteine."
+        },
+        {
+          "id": "data_quality_controls",
+          "label": "Welche Maßnahmen sichern Datenqualität, Aktualität und Relevanz?",
+          "type": "textarea",
+          "required": true,
+          "answer": "Nutzende werden angewiesen, nur aktuelle und freigegebene Informationen einzusetzen. Kritische Inhalte werden fachlich geprüft. Datenquellen werden dokumentiert und bei Bedarf aktualisiert."
+        },
+        {
+          "id": "bias_risk_known",
+          "label": "Sind mögliche Verzerrungen oder Benachteiligungen in Daten oder Ausgaben bekannt?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "Teilweise",
+            "Unklar"
+          ],
+          "answer": "Teilweise"
+        },
+        {
+          "id": "bias_mitigation",
+          "label": "Wie werden Bias- und Diskriminierungsrisiken reduziert?",
+          "type": "textarea",
+          "required": true,
+          "answer": "KI-Ergebnisse werden nicht ungeprüft übernommen. Für personenbezogene Bewertungen ist eine menschliche Prüfung erforderlich. Sensible Merkmale dürfen nicht als Entscheidungsgrundlage genutzt werden."
+        },
+        {
+          "id": "data_retention",
+          "label": "Wie lange werden Eingaben, Ausgaben oder Protokolle aufbewahrt?",
+          "type": "text",
+          "required": false,
+          "answer": "12 Monate, sofern keine kürzeren oder längeren gesetzlichen Aufbewahrungspflichten bestehen"
+        }
+      ]
+    },
+    {
+      "id": "technical_architecture",
+      "title": "Technische Architektur",
+      "description": "Technische Komponenten, Integrationen und Betriebsumgebung.",
+      "questions": [
+        {
+          "id": "architecture_description",
+          "label": "Beschreiben Sie die technische Architektur des KI-Systems.",
+          "type": "textarea",
+          "required": true,
+          "answer": "Das System besteht aus einer Weboberfläche, einem Backend zur Fragebogen- und Dokumentenlogik, einer JSON-basierten Antwortstruktur sowie einem Python-basierten Dokumentengenerator. Die KI-Funktionalität wird über eine gesicherte Schnittstelle zu einem externen Modellanbieter eingebunden."
+        },
+        {
+          "id": "hosting_environment",
+          "label": "Wo wird das System betrieben?",
+          "type": "select",
+          "required": true,
+          "options": [
+            "On-Premises",
+            "Private Cloud",
+            "Public Cloud EU",
+            "Public Cloud Nicht-EU",
+            "Hybrid",
+            "Unklar"
+          ],
+          "answer": "Public Cloud EU"
+        },
+        {
+          "id": "model_type",
+          "label": "Welche Art von KI-Modell wird verwendet?",
+          "type": "checkbox",
+          "required": true,
+          "options": [
+            "Large Language Model",
+            "Klassifikationsmodell",
+            "Scoring-Modell",
+            "Bildmodell",
+            "Sprachmodell",
+            "Regelbasiertes System",
+            "Eigenes Modell",
+            "Unklar"
+          ],
+          "answer": [
+            "Large Language Model"
+          ]
+        },
+        {
+          "id": "interfaces",
+          "label": "Welche Schnittstellen oder Integrationen bestehen?",
+          "type": "checkbox",
+          "required": false,
+          "options": [
+            "Weboberfläche",
+            "REST API",
+            "Datenbank",
+            "Dokumentenmanagementsystem",
+            "CRM",
+            "E-Mail-System",
+            "Identity Provider / SSO",
+            "Keine externen Integrationen",
+            "Sonstige"
+          ],
+          "answer": [
+            "Weboberfläche",
+            "REST API",
+            "Datenbank"
+          ]
+        },
+        {
+          "id": "access_control",
+          "label": "Wie wird der Zugriff geschützt?",
+          "type": "textarea",
+          "required": true,
+          "answer": "Der Zugriff erfolgt rollenbasiert über Benutzerkonten. Administrative Funktionen sind beschränkt. Zugriffe werden protokolliert und regelmäßig überprüft."
+        },
+        {
+          "id": "change_management",
+          "label": "Wie werden Änderungen am System dokumentiert?",
+          "type": "textarea",
+          "required": true,
+          "answer": "Änderungen werden versioniert, in einem Änderungsprotokoll dokumentiert und vor produktiver Nutzung fachlich freigegeben."
+        }
+      ]
+    },
+    {
+      "id": "risk_management",
+      "title": "Risikomanagement",
+      "description": "Risiken, Gegenmaßnahmen, Restrisiken und Verantwortlichkeiten.",
+      "questions": [
+        {
+          "id": "risk_management_process_exists",
+          "label": "Gibt es einen dokumentierten Risikomanagementprozess für das KI-System?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "In Planung",
+            "Unklar"
+          ],
+          "answer": "In Planung"
+        },
+        {
+          "id": "known_risks",
+          "label": "Welche wesentlichen Risiken können durch das KI-System entstehen?",
+          "type": "textarea",
+          "required": true,
+          "answer": "Mögliche Risiken sind sachlich falsche Ausgaben, unvollständige Dokumentation, Fehlinterpretationen durch Nutzende, unzulässige Eingabe vertraulicher Daten, Verzerrungen in Ausgaben sowie eine übermäßige Verlässlichkeit auf KI-Ergebnisse."
+        },
+        {
+          "id": "risk_affected_groups",
+          "label": "Welche Gruppen können von Risiken betroffen sein?",
+          "type": "checkbox",
+          "required": true,
+          "options": [
+            "Mitarbeitende",
+            "Kunden",
+            "Bewerber",
+            "Versicherungsnehmer",
+            "Geschäftspartner",
+            "Endverbraucher",
+            "Keine natürlichen Personen",
+            "Sonstige"
+          ],
+          "answer": [
+            "Mitarbeitende",
+            "Kunden",
+            "Geschäftspartner"
+          ]
+        },
+        {
+          "id": "risk_severity",
+          "label": "Wie hoch ist die mögliche Schwere der Risiken?",
+          "type": "select",
+          "required": true,
+          "options": [
+            "Niedrig",
+            "Mittel",
+            "Hoch",
+            "Sehr hoch",
+            "Unklar"
+          ],
+          "answer": "Mittel"
+        },
+        {
+          "id": "risk_probability",
+          "label": "Wie wahrscheinlich ist das Eintreten relevanter Risiken?",
+          "type": "select",
+          "required": true,
+          "options": [
+            "Niedrig",
+            "Mittel",
+            "Hoch",
+            "Sehr hoch",
+            "Unklar"
+          ],
+          "answer": "Mittel"
+        },
+        {
+          "id": "risk_mitigation_measures",
+          "label": "Welche Maßnahmen reduzieren diese Risiken?",
+          "type": "textarea",
+          "required": true,
+          "answer": "Maßnahmen sind menschliche Prüfung, Nutzungsrichtlinien, Rollen- und Berechtigungskonzept, Protokollierung, Schulungen, Qualitätssicherung, Freigabeprozesse und regelmäßige Überprüfung der Ergebnisse."
+        },
+        {
+          "id": "residual_risk",
+          "label": "Welche Restrisiken bleiben nach den Maßnahmen bestehen?",
+          "type": "textarea",
+          "required": true,
+          "answer": "Es bleibt ein Restrisiko für fehlerhafte, unvollständige oder missverständliche KI-Ausgaben. Dieses Risiko wird durch fachliche Prüfung und klare Verantwortlichkeiten begrenzt."
+        },
+        {
+          "id": "risk_owner",
+          "label": "Wer ist für das KI-Risikomanagement verantwortlich?",
+          "type": "text",
+          "required": true,
+          "answer": "Fachverantwortliche Person gemeinsam mit IT und Compliance"
+        },
+        {
+          "id": "review_frequency",
+          "label": "Wie häufig werden Risiken überprüft?",
+          "type": "select",
+          "required": true,
+          "options": [
+            "Monatlich",
+            "Quartalsweise",
+            "Halbjährlich",
+            "Jährlich",
+            "Anlassbezogen",
+            "Unklar"
+          ],
+          "answer": "Quartalsweise"
+        }
+      ]
+    },
+    {
+      "id": "human_oversight",
+      "title": "Menschliche Aufsicht",
+      "description": "Kontrolle, Übersteuerbarkeit und Verantwortlichkeit im Umgang mit KI-Ergebnissen.",
+      "questions": [
+        {
+          "id": "human_review_required",
+          "label": "Ist eine menschliche Prüfung der KI-Ergebnisse vorgesehen?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja, immer",
+            "Ja, bei kritischen Ergebnissen",
+            "Teilweise",
+            "Nein",
+            "Unklar"
+          ],
+          "answer": "Ja, bei kritischen Ergebnissen"
+        },
+        {
+          "id": "final_decision_by_human",
+          "label": "Wer trifft die finale Entscheidung?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Mensch",
+            "KI-System",
+            "Mensch mit KI-Unterstützung",
+            "Unklar"
+          ],
+          "answer": "Mensch mit KI-Unterstützung"
+        },
+        {
+          "id": "override_capability",
+          "label": "Kann eine verantwortliche Person das KI-Ergebnis überstimmen oder ignorieren?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "Teilweise",
+            "Unklar"
+          ],
+          "answer": "Ja"
+        },
+        {
+          "id": "oversight_roles",
+          "label": "Welche Rollen sind für menschliche Aufsicht vorgesehen?",
+          "type": "textarea",
+          "required": true,
+          "answer": "Die fachliche Prüfung erfolgt durch geschulte Mitarbeitende der zuständigen Fachabteilung. Bei Unsicherheiten wird an die jeweilige Führungskraft, IT oder Compliance eskaliert."
+        },
+        {
+          "id": "escalation_rules",
+          "label": "Wann muss eskaliert werden?",
+          "type": "textarea",
+          "required": true,
+          "answer": "Eine Eskalation ist erforderlich bei rechtlich relevanten Aussagen, personenbezogenen Bewertungen, sicherheitskritischen Ergebnissen, widersprüchlichen Ausgaben, Beschwerden oder Verdacht auf Fehlfunktion."
+        },
+        {
+          "id": "training_required",
+          "label": "Werden Nutzende zum Umgang mit dem KI-System geschult?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "In Planung",
+            "Unklar"
+          ],
+          "answer": "In Planung"
+        },
+        {
+          "id": "automation_bias_prevention",
+          "label": "Wie wird verhindert, dass KI-Ergebnisse ungeprüft übernommen werden?",
+          "type": "textarea",
+          "required": true,
+          "answer": "Nutzende erhalten klare Hinweise, dass KI-Ausgaben Entwürfe sind. Kritische Ergebnisse müssen geprüft werden. Die finale Verantwortung verbleibt bei der zuständigen Person."
+        }
+      ]
+    },
+    {
+      "id": "transparency_information",
+      "title": "Transparenz und Nutzerinformation",
+      "description": "Information der Nutzenden und ggf. betroffener Personen.",
+      "questions": [
+        {
+          "id": "users_informed_ai_use",
+          "label": "Werden Nutzende darüber informiert, dass KI eingesetzt wird?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "In Planung",
+            "Unklar"
+          ],
+          "answer": "Ja"
+        },
+        {
+          "id": "external_persons_informed",
+          "label": "Werden externe Personen informiert, wenn sie mit dem KI-System interagieren?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "Nicht relevant",
+            "In Planung",
+            "Unklar"
+          ],
+          "answer": "Nicht relevant"
+        },
+        {
+          "id": "ai_content_labeling",
+          "label": "Werden KI-generierte Inhalte gekennzeichnet?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "Teilweise",
+            "Nicht relevant",
+            "Unklar"
+          ],
+          "answer": "Teilweise"
+        },
+        {
+          "id": "user_instructions_available",
+          "label": "Gibt es eine Nutzeranleitung oder interne Nutzungsrichtlinie?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "In Planung",
+            "Unklar"
+          ],
+          "answer": "In Planung"
+        },
+        {
+          "id": "limitations_communicated",
+          "label": "Werden Grenzen und Fehlerrisiken des Systems erläutert?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "Teilweise",
+            "Unklar"
+          ],
+          "answer": "Teilweise"
+        },
+        {
+          "id": "transparency_text",
+          "label": "Formulieren Sie den vorgesehenen Transparenzhinweis.",
+          "type": "textarea",
+          "required": true,
+          "answer": "Dieses System verwendet KI, um Informationen zu strukturieren und Textentwürfe zu erzeugen. Die Ergebnisse können unvollständig oder fehlerhaft sein und müssen vor Verwendung fachlich geprüft werden."
+        }
+      ]
+    },
+    {
+      "id": "logging_monitoring",
+      "title": "Logging und Monitoring",
+      "description": "Protokollierung, Überwachung, Fehlererkennung und Aufbewahrung.",
+      "questions": [
+        {
+          "id": "logs_enabled",
+          "label": "Werden Nutzung, Eingaben, Ausgaben oder Entscheidungen protokolliert?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "Teilweise",
+            "Unklar"
+          ],
+          "answer": "Teilweise"
+        },
+        {
+          "id": "logged_events",
+          "label": "Welche Ereignisse werden protokolliert?",
+          "type": "checkbox",
+          "required": true,
+          "options": [
+            "Login / Zugriff",
+            "Nutzungszeitpunkt",
+            "Eingaben",
+            "Ausgaben",
+            "Fehlermeldungen",
+            "Freigaben",
+            "Änderungen an Einstellungen",
+            "Modellversion",
+            "Keine Protokollierung",
+            "Unklar"
+          ],
+          "answer": [
+            "Login / Zugriff",
+            "Nutzungszeitpunkt",
+            "Fehlermeldungen",
+            "Änderungen an Einstellungen",
+            "Modellversion"
+          ]
+        },
+        {
+          "id": "log_retention",
+          "label": "Wie lange werden Protokolle aufbewahrt?",
+          "type": "text",
+          "required": true,
+          "answer": "12 Monate"
+        },
+        {
+          "id": "log_access",
+          "label": "Wer darf Protokolle einsehen?",
+          "type": "textarea",
+          "required": true,
+          "answer": "Zugriff auf Protokolle haben nur autorisierte Personen aus IT, Compliance und Systemadministration nach dem Need-to-know-Prinzip."
+        },
+        {
+          "id": "monitoring_process",
+          "label": "Wie wird das System im laufenden Betrieb überwacht?",
+          "type": "textarea",
+          "required": true,
+          "answer": "Das System wird über technische Logs, Nutzerfeedback, Fehlermeldungen und regelmäßige fachliche Reviews überwacht."
+        },
+        {
+          "id": "incident_process",
+          "label": "Gibt es einen Prozess für Fehlfunktionen, Beschwerden oder Vorfälle?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "In Planung",
+            "Unklar"
+          ],
+          "answer": "In Planung"
+        },
+        {
+          "id": "shutdown_criteria",
+          "label": "Wann muss das System pausiert oder abgeschaltet werden?",
+          "type": "textarea",
+          "required": true,
+          "answer": "Das System wird pausiert, wenn wiederholt fehlerhafte oder riskante Ergebnisse auftreten, Sicherheitsvorfälle festgestellt werden, unzulässige Datenverarbeitung droht oder rechtliche Anforderungen nicht erfüllt sind."
+        }
+      ]
+    },
+    {
+      "id": "accuracy_robustness_cybersecurity",
+      "title": "Genauigkeit, Robustheit und Cybersicherheit",
+      "description": "Qualität, Stabilität und Schutz des KI-Systems.",
+      "questions": [
+        {
+          "id": "accuracy_requirements",
+          "label": "Welche Anforderungen bestehen an die Genauigkeit der Ergebnisse?",
+          "type": "textarea",
+          "required": true,
+          "answer": "Die Ergebnisse müssen fachlich plausibel, nachvollziehbar und für den vorgesehenen Zweck geeignet sein. Eine finale Prüfung durch Menschen bleibt erforderlich."
+        },
+        {
+          "id": "known_error_types",
+          "label": "Welche typischen Fehlerarten sind bekannt oder möglich?",
+          "type": "checkbox",
+          "required": true,
+          "options": [
+            "Falsche Tatsachenbehauptungen",
+            "Unvollständige Antworten",
+            "Veraltete Informationen",
+            "Falsche Klassifizierung",
+            "Missverständliche Formulierungen",
+            "Bias / Verzerrung",
+            "Prompt Injection",
+            "Datenabfluss",
+            "Keine bekannt",
+            "Unklar"
+          ],
+          "answer": [
+            "Falsche Tatsachenbehauptungen",
+            "Unvollständige Antworten",
+            "Veraltete Informationen",
+            "Missverständliche Formulierungen",
+            "Prompt Injection"
+          ]
+        },
+        {
+          "id": "robustness_measures",
+          "label": "Welche Maßnahmen erhöhen Robustheit und Zuverlässigkeit?",
+          "type": "textarea",
+          "required": true,
+          "answer": "Maßnahmen sind klare Systemanweisungen, Eingabebegrenzungen, Plausibilitätsprüfung, Nutzerhinweise, Qualitätssicherung, Tests mit typischen und kritischen Szenarien sowie regelmäßige Reviews."
+        },
+        {
+          "id": "cybersecurity_measures",
+          "label": "Welche Cybersicherheitsmaßnahmen bestehen?",
+          "type": "textarea",
+          "required": true,
+          "answer": "Es bestehen rollenbasierte Zugriffe, verschlüsselte Kommunikation, Protokollierung, technische Zugriffsbeschränkungen, sichere API-Anbindung und regelmäßige Überprüfung von Berechtigungen."
+        },
+        {
+          "id": "prompt_injection_protection",
+          "label": "Wie wird mit Prompt-Injection- oder Manipulationsrisiken umgegangen?",
+          "type": "textarea",
+          "required": true,
+          "answer": "Externe oder nicht vertrauenswürdige Inhalte werden als potenziell manipulierbar behandelt. Das System darf Anweisungen aus hochgeladenen Inhalten nicht ungeprüft als Systemanweisung übernehmen."
+        },
+        {
+          "id": "backup_recovery",
+          "label": "Gibt es Backup- und Wiederherstellungsverfahren?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "In Planung",
+            "Nicht relevant",
+            "Unklar"
+          ],
+          "answer": "In Planung"
+        }
+      ]
+    },
+    {
+      "id": "testing_validation",
+      "title": "Tests und Validierung",
+      "description": "Testverfahren, Akzeptanzkriterien und Freigaben.",
+      "questions": [
+        {
+          "id": "validation_tests",
+          "label": "Welche Tests wurden vor dem Einsatz durchgeführt?",
+          "type": "textarea",
+          "required": true,
+          "answer": "Im Pilotbetrieb wurden Funktionstests, Plausibilitätstests, Tests mit typischen Nutzerfragen, Tests zu Fehlantworten und Tests mit sensiblen Eingaben durchgeführt."
+        },
+        {
+          "id": "test_data_description",
+          "label": "Welche Testdaten wurden verwendet?",
+          "type": "textarea",
+          "required": true,
+          "answer": "Es wurden synthetische Testfälle, anonymisierte Beispieldaten und freigegebene interne Musterinformationen verwendet."
+        },
+        {
+          "id": "acceptance_criteria",
+          "label": "Welche Kriterien müssen erfüllt sein, damit das System eingesetzt werden darf?",
+          "type": "textarea",
+          "required": true,
+          "answer": "Das System darf nur eingesetzt werden, wenn die Kernfunktionen stabil laufen, keine kritischen Fehlverhalten bekannt sind, Nutzende informiert sind und menschliche Prüfung sichergestellt ist."
+        },
+        {
+          "id": "test_responsible_person",
+          "label": "Wer ist für Tests und Freigabe verantwortlich?",
+          "type": "text",
+          "required": true,
+          "answer": "Product Owner gemeinsam mit IT und Fachabteilung"
+        },
+        {
+          "id": "last_test_date",
+          "label": "Datum des letzten dokumentierten Tests",
+          "type": "date",
+          "required": false,
+          "answer": "2026-06-09"
+        },
+        {
+          "id": "next_review_date",
+          "label": "Geplanter nächster Review",
+          "type": "date",
+          "required": false,
+          "answer": "2026-09-09"
+        }
+      ]
+    },
+    {
+      "id": "fria_fundamental_rights",
+      "title": "FRIA / Grundrechte-Vorprüfung",
+      "description": "Vorprüfung möglicher Auswirkungen auf Grundrechte und betroffene Personen.",
+      "questions": [
+        {
+          "id": "fria_required_assessment",
+          "label": "Ist eine Grundrechte-Folgenabschätzung wahrscheinlich erforderlich?",
+          "type": "select",
+          "required": true,
+          "options": [
+            "Nein, nach aktueller Einschätzung nicht",
+            "Ja, wahrscheinlich",
+            "Möglicherweise",
+            "Unklar / rechtlich prüfen"
+          ],
+          "answer": "Möglicherweise"
+        },
+        {
+          "id": "fundamental_rights_affected",
+          "label": "Welche Rechte oder Interessen könnten betroffen sein?",
+          "type": "checkbox",
+          "required": true,
+          "options": [
+            "Datenschutz / Privatsphäre",
+            "Nichtdiskriminierung",
+            "Berufliche Chancen",
+            "Zugang zu Dienstleistungen",
+            "Verbraucherschutz",
+            "Meinungs- und Informationsfreiheit",
+            "Menschenwürde",
+            "Keine erkennbar",
+            "Unklar"
+          ],
+          "answer": [
+            "Datenschutz / Privatsphäre",
+            "Nichtdiskriminierung",
+            "Verbraucherschutz"
+          ]
+        },
+        {
+          "id": "vulnerable_groups",
+          "label": "Können besonders schutzbedürftige Gruppen betroffen sein?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "Möglicherweise",
+            "Unklar"
+          ],
+          "answer": "Möglicherweise"
+        },
+        {
+          "id": "complaint_channel",
+          "label": "Gibt es einen Beschwerde- oder Rückmeldekanal?",
+          "type": "radio",
+          "required": true,
+          "options": [
+            "Ja",
+            "Nein",
+            "In Planung",
+            "Unklar"
+          ],
+          "answer": "In Planung"
+        },
+        {
+          "id": "fria_notes",
+          "label": "Hinweise zur Grundrechte-Vorprüfung",
+          "type": "textarea",
+          "required": true,
+          "answer": "Da das System unterstützend eingesetzt wird und keine finalen Entscheidungen über natürliche Personen trifft, erscheint eine vollständige FRIA nach aktueller Einschätzung nicht zwingend. Wegen möglicher Datenschutz-, Diskriminierungs- und Verbraucherschutzaspekte sollte eine dokumentierte Vorprüfung erfolgen."
+        }
+      ]
+    },
+    {
+      "id": "documentation_governance",
+      "title": "Dokumentstatus und Governance",
+      "description": "Versionierung, Freigabe, Aktualisierung und Dokumentenverantwortung.",
+      "questions": [
+        {
+          "id": "documentation_owner",
+          "label": "Wer ist für die AI-Act-Dokumentation verantwortlich?",
+          "type": "text",
+          "required": true,
+          "answer": "Compliance-Team"
+        },
+        {
+          "id": "document_version",
+          "label": "Dokumentationsversion",
+          "type": "text",
+          "required": true,
+          "answer": "1.0"
+        },
+        {
+          "id": "approval_status",
+          "label": "Freigabestatus",
+          "type": "select",
+          "required": true,
+          "options": [
+            "Entwurf",
+            "In Prüfung",
+            "Freigegeben",
+            "Überarbeitung erforderlich",
+            "Archiviert"
+          ],
+          "answer": "Entwurf"
+        },
+        {
+          "id": "approval_owner",
+          "label": "Wer muss die Dokumentation freigeben?",
+          "type": "text",
+          "required": true,
+          "answer": "Geschäftsführung / Compliance / IT-Leitung"
+        },
+        {
+          "id": "update_trigger",
+          "label": "Wann muss die Dokumentation aktualisiert werden?",
+          "type": "textarea",
+          "required": true,
+          "answer": "Eine Aktualisierung ist erforderlich bei wesentlichen Änderungen am System, neuen Modellen, neuen Datenarten, geänderter Nutzung, neuen Risiken, Vorfällen oder relevanten Rechtsänderungen."
+        },
+        {
+          "id": "document_storage",
+          "label": "Wo wird die Dokumentation abgelegt?",
+          "type": "text",
+          "required": false,
+          "answer": "Internes Dokumentenmanagementsystem / Compliance-Ablage"
+        },
+        {
+          "id": "open_points",
+          "label": "Offene Punkte",
+          "type": "textarea",
+          "required": false,
+          "answer": "Rechtliche Detailprüfung der Risikoklassifizierung, finale Datenschutzprüfung, Festlegung der Logging-Fristen, Abschluss der Nutzerschulung und Freigabe durch Compliance."
+        }
+      ]
+    }
+  ]
+}
