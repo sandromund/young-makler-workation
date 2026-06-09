@@ -1,4 +1,4 @@
-const DEFAULT_JSON = "questions.json";
+const DEFAULT_JSON = "questions/questions_ai_act_v3_full_default.json";
 const DIRECTORY_HANDLE_KEY = "ai-act-tool-directory";
 
 let state = null;
@@ -7,6 +7,7 @@ let directoryHandle = null;
 let currentFileName = null;
 let saveMode = null;
 let hasUnsavedChanges = false;
+let activeSectionIndex = 0;
 
 const jsonFileSelect = document.getElementById("jsonFileSelect");
 const linkFolderButton = document.getElementById("linkFolderButton");
@@ -15,7 +16,6 @@ const downloadButton = document.getElementById("downloadButton");
 const loadExampleButton = document.getElementById("loadExampleButton");
 const resetAnswersButton = document.getElementById("resetAnswersButton");
 const questionForm = document.getElementById("questionForm");
-const emptyState = document.getElementById("emptyState");
 const sectionNav = document.getElementById("sectionNav");
 const saveStatus = document.getElementById("saveStatus");
 const progressText = document.getElementById("progressText");
@@ -233,7 +233,6 @@ async function init() {
     return;
   }
 
-  setStatus("Keine JSON geladen. Server starten oder Ordner verknüpfen.", "unsaved");
   jsonFileSelect.innerHTML = `<option value="">Keine Datei geladen</option>`;
 }
 
@@ -292,7 +291,10 @@ async function refreshJsonFileList() {
   const previous = currentFileName;
 
   jsonFileSelect.innerHTML = files
-    .map((file) => `<option value="${escapeHtml(file)}">${escapeHtml(file)}</option>`)
+    .map((file) => {
+      const label = file.includes("/") ? file.split("/").pop() : file;
+      return `<option value="${escapeHtml(file)}">${escapeHtml(label)}</option>`;
+    })
     .join("");
 
   jsonFileSelect.disabled = files.length === 0;
@@ -325,13 +327,18 @@ async function listJsonFiles() {
   }
 
   if (directoryHandle) {
-    const files = [];
-    for await (const entry of directoryHandle.values()) {
-      if (entry.kind === "file" && entry.name.endsWith(".json")) {
-        files.push(entry.name);
+    try {
+      const questionsDir = await directoryHandle.getDirectoryHandle("questions");
+      const files = [];
+      for await (const entry of questionsDir.values()) {
+        if (entry.kind === "file" && entry.name.endsWith(".json")) {
+          files.push(`questions/${entry.name}`);
+        }
       }
+      return files.sort();
+    } catch {
+      // Fallback below.
     }
-    return files.sort();
   }
 
   if (currentFileName) {
@@ -371,7 +378,14 @@ async function loadJsonFromDirectory(filename) {
     throw new Error("Kein Ordner verknüpft.");
   }
 
-  fileHandle = await directoryHandle.getFileHandle(filename);
+  const parts = filename.split("/");
+  let dir = directoryHandle;
+
+  for (let index = 0; index < parts.length - 1; index += 1) {
+    dir = await dir.getDirectoryHandle(parts[index]);
+  }
+
+  fileHandle = await dir.getFileHandle(parts[parts.length - 1]);
   const file = await fileHandle.getFile();
   const json = JSON.parse(await file.text());
 
@@ -382,11 +396,11 @@ function loadData(json, filename = null, mode = null) {
   validateData(json);
   state = json;
   hasUnsavedChanges = false;
+  activeSectionIndex = 0;
 
   if (filename) currentFileName = filename;
   if (mode) saveMode = mode;
 
-  emptyState.hidden = true;
   questionForm.hidden = false;
   saveFileButton.disabled = saveMode === "example";
   downloadButton.disabled = false;
@@ -401,10 +415,24 @@ function loadData(json, filename = null, mode = null) {
   updateProgress();
 
   if (saveMode === "http" || saveMode === "fsa") {
-    setStatus(`${currentFileName} geladen`, "saved");
+    setStatus(`${displayFileName(currentFileName)} geladen`, "saved");
   } else if (saveMode === "example") {
     setStatus("Beispiel geladen (nicht gespeichert)", "saved");
   }
+}
+
+function displayFileName(filename) {
+  if (!filename) return "";
+  return filename.includes("/") ? filename.split("/").pop() : filename;
+}
+
+function isQuestionAnswered(question) {
+  if (Array.isArray(question.answer)) return question.answer.length > 0;
+  return String(question.answer ?? "").trim() !== "";
+}
+
+function isSectionComplete(section) {
+  return section.questions.length > 0 && section.questions.every(isQuestionAnswered);
 }
 
 function validateData(json) {
@@ -431,40 +459,67 @@ function renderNavigation() {
   state.sections.forEach((section, index) => {
     const button = document.createElement("button");
     button.type = "button";
-    button.className = "nav-item" + (index === 0 ? " active" : "");
+    button.className = "nav-item";
     button.textContent = section.title;
-    button.addEventListener("click", () => {
-      document.getElementById("section-" + section.id).scrollIntoView({ behavior: "smooth", block: "start" });
-      document.querySelectorAll(".nav-item").forEach((item) => item.classList.remove("active"));
+    button.title = section.title;
+
+    if (index === activeSectionIndex) {
       button.classList.add("active");
+    }
+    if (isSectionComplete(section)) {
+      button.classList.add("answered");
+    }
+
+    button.addEventListener("click", () => {
+      activeSectionIndex = index;
+      updateNavigationActive();
+      renderForm();
     });
+
     sectionNav.appendChild(button);
+  });
+}
+
+function updateNavigationActive() {
+  const buttons = sectionNav.querySelectorAll(".nav-item");
+  buttons.forEach((button, index) => {
+    button.classList.toggle("active", index === activeSectionIndex);
+  });
+}
+
+function updateNavigationProgress() {
+  const buttons = sectionNav.querySelectorAll(".nav-item");
+  state.sections.forEach((section, index) => {
+    const button = buttons[index];
+    if (!button) return;
+    button.classList.toggle("answered", isSectionComplete(section));
   });
 }
 
 function renderForm() {
   questionForm.innerHTML = "";
 
-  state.sections.forEach((section) => {
-    const sectionEl = document.createElement("section");
-    sectionEl.className = "section";
-    sectionEl.id = "section-" + section.id;
+  const section = state.sections[activeSectionIndex];
+  if (!section) return;
 
-    const header = document.createElement("div");
-    header.className = "section-header";
-    header.innerHTML = `
-      <h2 class="section-title">${escapeHtml(section.title)}</h2>
-      ${section.description ? `<p class="section-description">${escapeHtml(section.description)}</p>` : ""}
-    `;
-    sectionEl.appendChild(header);
+  const sectionEl = document.createElement("section");
+  sectionEl.className = "section";
+  sectionEl.id = "section-" + section.id;
 
-    section.questions.forEach((question) => {
-      const questionEl = createQuestionElement(section.id, question);
-      sectionEl.appendChild(questionEl);
-    });
+  const header = document.createElement("div");
+  header.className = "section-header";
+  header.innerHTML = `
+    <h2 class="section-title">${escapeHtml(section.title)}</h2>
+    ${section.description ? `<p class="section-description">${escapeHtml(section.description)}</p>` : ""}
+  `;
+  sectionEl.appendChild(header);
 
-    questionForm.appendChild(sectionEl);
+  section.questions.forEach((question) => {
+    const questionEl = createQuestionElement(section.id, question);
+    sectionEl.appendChild(questionEl);
   });
+
+  questionForm.appendChild(sectionEl);
 }
 
 function createQuestionElement(sectionId, question) {
@@ -598,6 +653,7 @@ function markUnsaved() {
   }
   setStatus("Ungespeicherte Änderungen", "unsaved");
   updateProgress();
+  updateNavigationProgress();
 }
 
 function updateProgress() {
@@ -607,10 +663,7 @@ function updateProgress() {
   }
 
   const questions = state.sections.flatMap((section) => section.questions);
-  const answered = questions.filter((question) => {
-    if (Array.isArray(question.answer)) return question.answer.length > 0;
-    return String(question.answer ?? "").trim() !== "";
-  }).length;
+  const answered = questions.filter(isQuestionAnswered).length;
 
   progressText.textContent = `${answered} / ${questions.length} beantwortet`;
 }
@@ -759,6 +812,7 @@ function resetAnswers() {
 
   markUnsaved();
   renderForm();
+  updateNavigationProgress();
 }
 
 function setStatus(text, type) {

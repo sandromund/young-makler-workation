@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Serves the web tool and saves JSON files in this directory."""
+"""Serves the web tool and saves JSON files in the questions/ directory."""
 
 from __future__ import annotations
 
@@ -9,6 +9,7 @@ from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
+QUESTIONS_DIR = ROOT / "questions"
 
 
 class Handler(SimpleHTTPRequestHandler):
@@ -18,7 +19,7 @@ class Handler(SimpleHTTPRequestHandler):
     def do_GET(self) -> None:
         parsed = urllib.parse.urlparse(self.path)
         if parsed.path == "/api/json/list":
-            files = sorted(path.name for path in ROOT.glob("*.json"))
+            files = sorted(f"questions/{path.name}" for path in QUESTIONS_DIR.glob("*.json"))
             payload = json.dumps(files).encode("utf-8")
             self.send_response(200)
             self.send_header("Content-Type", "application/json")
@@ -53,6 +54,7 @@ class Handler(SimpleHTTPRequestHandler):
             self.send_error(403)
             return
 
+        target.parent.mkdir(parents=True, exist_ok=True)
         target.write_bytes(body)
         payload = b'{"ok":true}'
         self.send_response(200)
@@ -63,12 +65,13 @@ class Handler(SimpleHTTPRequestHandler):
 
 
 def _is_safe_json_name(filename: str) -> bool:
-    return (
-        bool(filename)
-        and filename.endswith(".json")
-        and Path(filename).name == filename
-        and ".." not in filename
-    )
+    if not filename or not filename.endswith(".json"):
+        return False
+    if ".." in filename or filename.startswith(("/", "\\")) or "\\" in filename:
+        return False
+
+    parts = Path(filename).parts
+    return len(parts) == 2 and parts[0] == "questions" and parts[1].endswith(".json")
 
 
 def _is_inside_root(path: Path) -> bool:
@@ -80,6 +83,7 @@ def _is_inside_root(path: Path) -> bool:
 
 
 def main() -> None:
+    QUESTIONS_DIR.mkdir(exist_ok=True)
     server = ThreadingHTTPServer(("127.0.0.1", 8080), Handler)
     print(f"Serving {ROOT} at http://127.0.0.1:8080/")
     print("Open http://127.0.0.1:8080/index.html")
