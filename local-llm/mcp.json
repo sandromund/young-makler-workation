@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "demo-tools": {
+      "command": "C:\\_CODE\\young-makler-workation\\.venv\\Scripts\\python.exe",
+      "args": [
+        "C:\\_CODE\\young-makler-workation\\local-llm\\server.py"
+      ]
+    }
+  }
+}
