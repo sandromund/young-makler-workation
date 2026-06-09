@@ -138,6 +138,15 @@ button:disabled {
   background: var(--primary-dark);
 }
 
+.accent {
+  background: var(--success);
+  color: white;
+}
+
+.accent:hover {
+  background: #0f5132;
+}
+
 .secondary,
 .file-label {
   background: var(--surface-2);

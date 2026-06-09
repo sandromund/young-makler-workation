@@ -4,7 +4,7 @@
     "schema_version": "3.0",
     "language": "de",
     "created_at": "2026-06-09T10:19:57",
-    "updated_at": "2026-06-09T10:19:57",
+    "updated_at": "2026-06-09T11:00:20.053Z",
     "target_use": "Dieses JSON wird vom Web-Tool befüllt und später von Python zur automatisierten Word-Dokumentenerzeugung verwendet.",
     "important_note": "Die Default-Antworten sind realistische Beispielwerte und müssen für den konkreten KI-Anwendungsfall fachlich, technisch, datenschutzrechtlich und rechtlich geprüft werden.",
     "risk_logic_hint": "Das Python-Skript sollte Dokumente dynamisch erzeugen: Basisdokumente immer, Hochrisiko-/Provider-Dokumente nur bei entsprechender Rolle oder Risikoklassifizierung, Datenschutzdokumente bei personenbezogenen Daten, FRIA-Dokumente bei relevanter Grundrechtsbetroffenheit.",
@@ -61,7 +61,7 @@
           "label": "Branche",
           "type": "select",
           "required": true,
-          "answer": "Versicherung",
+          "answer": "Finanzdienstleistung",
           "options": [
             "Versicherung",
             "Finanzdienstleistung",

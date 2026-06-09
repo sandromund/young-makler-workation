@@ -8,10 +8,12 @@ let currentFileName = null;
 let saveMode = null;
 let hasUnsavedChanges = false;
 let activeSectionIndex = 0;
+let serverSupportsGenerate = false;
 
 const jsonFileSelect = document.getElementById("jsonFileSelect");
 const linkFolderButton = document.getElementById("linkFolderButton");
 const saveFileButton = document.getElementById("saveFileButton");
+const generateDocumentsButton = document.getElementById("generateDocumentsButton");
 const downloadButton = document.getElementById("downloadButton");
 const loadExampleButton = document.getElementById("loadExampleButton");
 const resetAnswersButton = document.getElementById("resetAnswersButton");
@@ -203,6 +205,7 @@ jsonFileSelect.addEventListener("change", () => {
 
 linkFolderButton.addEventListener("click", linkLocalFolder);
 saveFileButton.addEventListener("click", saveToOriginalFile);
+generateDocumentsButton.addEventListener("click", generateDocuments);
 downloadButton.addEventListener("click", () => downloadJson());
 loadExampleButton.addEventListener("click", () => loadData(structuredClone(exampleData), null, "example"));
 resetAnswersButton.addEventListener("click", resetAnswers);
@@ -225,6 +228,7 @@ async function init() {
 
   if (await tryLoadViaHttp(preferredFile)) {
     await refreshJsonFileList();
+    await checkServerCapabilities();
     return;
   }
 
@@ -403,6 +407,7 @@ function loadData(json, filename = null, mode = null) {
 
   questionForm.hidden = false;
   saveFileButton.disabled = saveMode === "example";
+  updateGenerateButtonState();
   downloadButton.disabled = false;
   resetAnswersButton.disabled = false;
 
@@ -705,6 +710,89 @@ async function saveToOriginalFile() {
   }
 
   downloadJson(currentFileName || undefined);
+}
+
+async function checkServerCapabilities() {
+  try {
+    const response = await fetch("/api/health", { cache: "no-store" });
+    const data = await parseJsonResponse(response);
+    serverSupportsGenerate = data.generate === true;
+  } catch {
+    serverSupportsGenerate = false;
+  }
+
+  updateGenerateButtonState();
+}
+
+function updateGenerateButtonState() {
+  generateDocumentsButton.disabled = saveMode !== "http" || !serverSupportsGenerate;
+  generateDocumentsButton.title =
+    saveMode === "http" && !serverSupportsGenerate
+      ? "Alten Server beenden und py -3 server.py neu starten"
+      : "";
+}
+
+async function parseJsonResponse(response) {
+  const contentType = response.headers.get("content-type") || "";
+  if (!contentType.includes("application/json")) {
+    throw new Error(
+      "Der Server antwortet nicht mit JSON. Bitte alle laufenden Server auf Port 8080 beenden und dann py -3 server.py neu starten."
+    );
+  }
+  return response.json();
+}
+
+async function generateDocuments() {
+  if (!state) return;
+
+  if (saveMode !== "http") {
+    alert("Word-Dokumente können nur über den lokalen Server erzeugt werden. Bitte py -3 server.py starten.");
+    return;
+  }
+
+  if (!serverSupportsGenerate) {
+    alert(
+      "Dokumentenerstellung nicht verfügbar. Bitte alle alten Server-Prozesse beenden und den Server neu starten:\n\npy -3 server.py"
+    );
+    return;
+  }
+
+  if (!currentFileName) {
+    alert("Keine JSON-Datei geladen.");
+    return;
+  }
+
+  if (hasUnsavedChanges) {
+    await saveToOriginalFile();
+  }
+
+  generateDocumentsButton.disabled = true;
+  setStatus("Dokumente werden erstellt …", "unsaved");
+
+  try {
+    const response = await fetch(`/api/generate?file=${encodeURIComponent(currentFileName)}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(state, null, 2)
+    });
+
+    const result = await parseJsonResponse(response);
+    if (!response.ok || !result.ok) {
+      throw new Error(result.error || "Dokumente konnten nicht erstellt werden.");
+    }
+
+    hasUnsavedChanges = false;
+    setStatus(`${result.count} Word-Dokumente erstellt`, "saved");
+
+    if (result.zip) {
+      window.location.href = result.zip;
+    }
+  } catch (error) {
+    alert("Fehler bei der Dokumentenerstellung: " + error.message);
+    setStatus("Dokumentenerstellung fehlgeschlagen", "unsaved");
+  } finally {
+    updateGenerateButtonState();
+  }
 }
 
 async function downloadJson(filename = createDownloadFilename()) {
