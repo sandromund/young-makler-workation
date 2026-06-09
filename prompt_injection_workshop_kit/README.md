@@ -16,7 +16,7 @@ Die Demo zeigt, dass ein normal wirkendes Kundendokument versteckte Anweisungen 
 
 ## Schnellstart
 
-Alle Befehle im Ordner `prompt_injection_workshop_kit` ausfuehren (dort liegen `requirements.txt` und `embed_hidden_message.py`).
+Alle Befehle im Ordner `prompt_injection_workshop_kit` ausfuehren (dort liegt `embed_hidden_message.py`). Abhaengigkeiten stehen in `requirements.txt` im Repository-Root.
 
 ```powershell
 cd prompt_injection_workshop_kit
@@ -30,7 +30,7 @@ Unter Windows ist oft nur `py -3` verfuegbar, nicht `python`. Beide Schritte unt
 
 ```powershell
 py -3 -m venv .venv
-.venv/Scripts/python.exe -m pip install -r requirements.txt
+.venv/Scripts/python.exe -m pip install -r ../requirements.txt
 ```
 
 Optional: `.venv/Scripts/Activate.ps1` — danach funktioniert auch `python` im gleichen Terminal.
@@ -40,7 +40,7 @@ Unter Linux oder macOS:
 ```bash
 cd prompt_injection_workshop_kit
 python3 -m venv .venv
-.venv/bin/pip install -r requirements.txt
+.venv/bin/pip install -r ../requirements.txt
 source .venv/bin/activate
 ```
 

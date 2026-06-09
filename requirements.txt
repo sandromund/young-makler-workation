@@ -1,0 +1,9 @@
+google-cloud-api-keys
+mcp[cli]>=0.6.2
+openai>=2.41.0
+openpyxl
+pyinstaller
+pypdf>=5.0.0
+python-dotenv
+reportlab>=4.2.0
+requests

@@ -2,7 +2,7 @@
 Erstellt aus main.py ein ausführbares Programm.
 
 Voraussetzung:
-    pip install -r requirements.txt
+    pip install -r ../requirements.txt
 
 Start:
     python build_exe.py
@@ -21,6 +21,7 @@ from pathlib import Path
 
 
 PROJECT_DIR = Path(__file__).resolve().parent
+REPO_ROOT = PROJECT_DIR.parent
 APP_NAME = "GooglePlacesLeadRadar"
 MAIN_FILE = PROJECT_DIR / "main.py"
 DIST_DIR = PROJECT_DIR / "dist"
@@ -90,7 +91,7 @@ def ensure_pyinstaller_available() -> None:
         raise RuntimeError(
             "PyInstaller ist nicht installiert.\n\n"
             "Bitte führen Sie zuerst aus:\n"
-            "    pip install -r requirements.txt\n\n"
+            "    pip install -r ../requirements.txt\n\n"
             "Danach starten Sie erneut:\n"
             "    python build_exe.py"
         )
@@ -150,7 +151,7 @@ def create_release_folder(executable_path: Path) -> Path:
     ]
 
     for file_name in files_to_copy:
-        source = PROJECT_DIR / file_name
+        source = REPO_ROOT / file_name if file_name == ".env.example" else PROJECT_DIR / file_name
         if source.exists():
             shutil.copy2(source, RELEASE_DIR / file_name)
 

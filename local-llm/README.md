@@ -39,7 +39,7 @@ lmstudio-mcp-demo/
 - [LM Studio](https://lmstudio.ai/) (muss zuerst installiert und eingerichtet sein)
 - Python 3.10 oder neuer
 - Ein lokal geladenes Modell in LM Studio, das Tool Calling gut unterstützt
-- Python-Pakete aus `requirements.txt` (u. a. `mcp`, `openai`)
+- Python-Pakete aus `requirements.txt` im Repository-Root (u. a. `mcp`, `openai`)
 
 ---
 
@@ -89,7 +89,7 @@ source .venv/bin/activate
 Abhängigkeiten installieren:
 
 ```bash
-pip install -r requirements.txt
+pip install -r ../requirements.txt
 ```
 
 ---

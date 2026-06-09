@@ -1,6 +1,6 @@
 # DeepInfra Chat
 
-Lokale Webapp zum Chatten mit KI-Modellen über [DeepInfra](https://deepinfra.com). Das Frontend ist reines HTML, CSS und JavaScript. Ein kleiner Express-Server liest den API-Key aus der `.env`-Datei und leitet Anfragen sicher an DeepInfra weiter.
+Lokale Webapp zum Chatten mit KI-Modellen über [DeepInfra](https://deepinfra.com). Das Frontend ist reines HTML, CSS und JavaScript. Ein kleiner Express-Server liest den API-Key aus der zentralen `.env`-Datei im Repository-Root und leitet Anfragen sicher an DeepInfra weiter.
 
 ## Voraussetzungen
 
@@ -25,13 +25,13 @@ Nur beim ersten Mal nötig.
 
 ### 3. Umgebungsvariablen einrichten
 
-`.env.example` nach `.env` kopieren:
+Im Repository-Root `.env.example` nach `.env` kopieren (falls noch nicht vorhanden):
 
 ```powershell
-copy .env.example .env
+copy ..\..\.env.example ..\..\.env
 ```
 
-API-Key in `.env` eintragen:
+API-Key in `..\..\.env` eintragen:
 
 ```env
 DEEP_INFRA_API_KEY=dein_deepinfra_api_key
@@ -93,7 +93,7 @@ npm start
 | „Server nicht erreichbar“ | `npm start` ausführen und **http://localhost:3000** öffnen |
 | Konfiguration lädt nicht | Alten Server beenden (Strg + C), neu starten, Hard-Reload (Strg + F5) |
 | `npm start` im falschen Ordner | In `deepinfra-chat` wechseln, nicht im Repo-Root |
-| Kein API-Key | `.env` anlegen und `DEEP_INFRA_API_KEY` setzen |
+| Kein API-Key | `.env` im Repository-Root anlegen und `DEEP_INFRA_API_KEY` setzen |
 
 ## Warum kein API-Key im Frontend?
 
@@ -108,16 +108,17 @@ deepinfra-chat/
 ├─ app.js          Chat-Logik (Frontend)
 ├─ server.js       Express-Server und API-Proxy
 ├─ config.js       Modelle, System-Prompt, API-Einstellungen
-├─ package.json    npm-Abhängigkeiten
-├─ .env.example    Vorlage für Umgebungsvariablen
-└─ .env            API-Key (nicht committen)
+└─ package.json    npm-Abhängigkeiten
+
+../.env.example    Vorlage für Umgebungsvariablen (Repository-Root)
+../../.env         API-Key (nicht committen)
 ```
 
 ## Konfiguration
 
 | Datei | Inhalt |
 |-------|--------|
-| `.env` | API-Key, Port |
+| `../../.env` | API-Key, Port |
 | `config.js` | Modell-Liste, Standard-Modell, System-Prompt, Temperatur, max. Tokens |
 
 Temperatur und maximale Token-Anzahl liegen in `config.js`. Modell und System-Prompt können zusätzlich direkt in der Weboberfläche geändert werden.

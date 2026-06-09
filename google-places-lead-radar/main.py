@@ -36,7 +36,8 @@ def get_project_dir() -> Path:
 
 
 PROJECT_DIR = get_project_dir()
-ENV_FILE = PROJECT_DIR / ".env"
+REPO_ROOT = Path(__file__).resolve().parent.parent
+ENV_FILE = PROJECT_DIR / ".env" if getattr(sys, "frozen", False) else REPO_ROOT / ".env"
 INPUT_FILE = PROJECT_DIR / "input.txt"
 OUTPUT_DIR = PROJECT_DIR / "output"
 
@@ -75,8 +76,9 @@ def load_api_key() -> str:
     """Lädt den Google Places API-Key aus der .env-Datei."""
     if not ENV_FILE.exists():
         raise FileNotFoundError(
-            "Die Datei .env wurde nicht gefunden. "
-            "Kopieren Sie .env.example, nennen Sie die Kopie .env und tragen Sie Ihren API-Key ein."
+            f"Die Datei .env wurde nicht gefunden: {ENV_FILE}\n"
+            "Kopieren Sie .env.example im Repository-Root, nennen Sie die Kopie .env "
+            "und tragen Sie Ihren API-Key ein."
         )
 
     load_dotenv(ENV_FILE)
