@@ -6,6 +6,8 @@ KI verspricht Maklern genau das, was im Alltag fehlt: weniger Handarbeit, schnel
 
 **Repository:** Mit dem Smartphone scannen oder [github.com/sandromund/young-makler-workation](https://github.com/sandromund/young-makler-workation) im Browser öffnen.
 
+**Workshop-Einstieg:** [intro.md](intro.md) – KI-Wachstum, Forschung und Beispiele in Bildern.
+
 ---
 
 ## Anleitung für Nicht-Entwickler: Mit KI Code entwickeln
